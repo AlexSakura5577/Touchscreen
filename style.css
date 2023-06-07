@@ -35,3 +35,8 @@ html {
 .info__content {
     padding: 5px;
 }
+
+/* ненужный стиль */
+.gtx {
+    background: #17e113;
+}
