@@ -41,7 +41,7 @@ function TouchStart(e) {
     touchPosition = { x: touchStart.x, y: touchStart.y };
 
     //Рисуем точку начала касания
-    Draw(touchPosition.x, touchPosition.y, 6, "blue");
+    Draw(touchPosition.x, touchPosition.y, 4, "blue");
 };
 
 function TouchMove(e) {
@@ -58,7 +58,7 @@ function TouchEnd(e, color) {
     DrawLine();
 
     //Рисуем конечную точку
-    Draw(touchPosition.x, touchPosition.y, 6, color);
+    Draw(touchPosition.x, touchPosition.y, 4, color);
 
     //Определяем, какой жест совершил пользователь
     CheckAction();
@@ -80,6 +80,8 @@ function CheckAction() {
     //Сообщение
     var msg = "";
 
+    canvas.style.background = '#7de8d3';
+
     if (Math.abs(d.x) > Math.abs(d.y)) //Проверяем, движение по какой оси было длиннее
     {
         if (Math.abs(d.x) > sensitivity) //Проверяем, было ли движение достаточно длинным
@@ -87,10 +89,12 @@ function CheckAction() {
             if (d.x > 0) //Если значение больше нуля, значит пользователь двигал пальцем справа налево
             {
                 msg = "Swipe Left";
+                canvas.style.background = '#c546db';
             }
             else //Иначе он двигал им слева направо
             {
                 msg = "Swipe Right";
+                canvas.style.background = '#c2e640';
             }
         }
     }
@@ -100,10 +104,12 @@ function CheckAction() {
             if (d.y > 0) //Свайп вверх
             {
                 msg = "Swipe up";
+                canvas.style.background = '#f163d3';
             }
             else //Свайп вниз
             {
                 msg = "Swipe down";
+                canvas.style.background = '#30aae8';
             }
         }
     }
@@ -111,8 +117,8 @@ function CheckAction() {
     msgBox.innerText = msg; //Выводим сообщение
 };
 
-//Функция рисования точки
-function Draw(x, y, weight, color = "#000") {
+//Функция рисования пунктирной линии (повторяет движение)
+function Draw(x, y, weight, color = "#0e25cf") {
     ctx.fillStyle = color;
 
     let weightHalf = weight / 2;
@@ -120,10 +126,10 @@ function Draw(x, y, weight, color = "#000") {
     ctx.fillRect(x - weightHalf, y - weightHalf, weight, weight);
 };
 
-//Функция рисования линии
+//Функция рисования соединяющей сплошной линии (краткий путь)
 function DrawLine() {
     // ctx.strokeStyle = "#ccc";
-    ctx.strokeStyle = "#17e113";
+    ctx.strokeStyle = "#0a9707";
 
     ctx.beginPath();
 
@@ -132,5 +138,3 @@ function DrawLine() {
 
     ctx.stroke();
 };
-
-
